@@ -47,14 +47,14 @@ export const findTaskById = async (id: string) => {
   return prisma.task.findUnique({
     where: { id },
     include: {
-      assignedMember: { select: { id: true, name: true, email: true } },
+      assignedMember: { select: { id: true,  email: true } },
       project: { select: { id: true, name: true } },
       comments: {
-        include: { user: { select: { id: true, name: true } } },
+        include: { user: { select: { id: true, firstName: true } } },
         orderBy: { createdAt: "desc" },
       },
       attachments: {
-        include: { uploadedBy: { select: { id: true, name: true } } },
+        include: { uploadedBy: { select: { id: true, firstName: true } } },
       },
     },
   });
@@ -86,7 +86,7 @@ export const createTask = async (data: {
   return prisma.task.create({
     data,
     include: {
-      assignedMember: { select: { id: true, name: true, email: true } },
+      assignedMember: { select: { id: true, email: true } },
     },
   });
 };

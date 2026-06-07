@@ -42,7 +42,7 @@ export const createTask = async (
   let actionMsg = `Task "${task.title}" was created in project.`;
   if (input.assignedMemberId) {
     const assignee = await authRepo.findUserById(input.assignedMemberId);
-    actionMsg = `Task "${task.title}" was assigned to ${assignee?.name ?? "a member"}.`;
+    actionMsg = `Task "${task.title}" was assigned to ${assignee?.firstName ?? "a member"}.`;
   }
 
   await activityRepo.createActivityLog({

@@ -39,21 +39,34 @@ export const findAllProjects = async (params: {
 };
 
 export const findProjectById = async (id: string) => {
-  return prisma.project.findUnique({
-    where: { id },
-    include: {
-      owner: { select: { id: true,  email: true } },
-      members: {
-        include: { user: { select: { id: true,  email: true, role: true } } },
-      },
-      tasks: {
-        include: {
-          assignedMember: { select: { id: true,  email: true } },
+
+ const project = await prisma.project.findUnique({
+  where: { id },
+  include: {
+    owner: { select: { id: true, email: true } },
+    members: {
+      include: {
+        user: {
+          select: {
+            email: true,
+          },
         },
-        orderBy: { createdAt: "desc" },
       },
     },
-  });
+  },
+});
+
+const formatted = {
+  ...project,
+  members: project?.members.map((m) => ({
+    userId: m.userId,
+    userEmail: m.user.email, 
+    assignedAt: m.assignedAt,
+    role: m.role,
+  })),
+};
+
+return formatted;
 };
 
 export const createProject = async (data: {
