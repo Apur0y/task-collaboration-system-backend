@@ -84,3 +84,20 @@ export const deleteProject = async (
     next(err);
   }
 };
+
+export const updateProjectMembers= async(
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const project = await projectService.updateProjectMembers(
+      req.params.id,
+      req.body,
+      req.user!
+    );
+    sendSuccess(res, project);
+  } catch (err) {
+    next(err);
+  }
+};

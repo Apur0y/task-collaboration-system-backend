@@ -1,4 +1,4 @@
-import { PrismaClient, UserRole, ProjectStatus, TaskPriority, TaskStatus } from "@prisma/client";
+import { PrismaClient, UserRole, ProjectStatus, TaskPriority, TaskStatus, ProjectRole } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
@@ -15,14 +15,15 @@ async function main() {
   await prisma.project.deleteMany();
   await prisma.user.deleteMany();
 
-  const passwordHash = await bcrypt.hash("password123", 12);
+  const passwordHash = await bcrypt.hash("123456", 12);
 
   // Create Users
   const admin = await prisma.user.create({
     data: {
       email: "admin@example.com",
       passwordHash,
-      name: "Alice Admin",
+      firstName: "Alice Admin",
+      lastName:"Smith",
       role: UserRole.ADMIN,
     },
   });
@@ -31,8 +32,9 @@ async function main() {
     data: {
       email: "pm@example.com",
       passwordHash,
-      name: "Bob Manager",
-      role: UserRole.PROJECT_MANAGER,
+      firstName: "Bob",
+      lastName:"Manager",
+      role: ProjectRole.MANAGER,
     },
   });
 
@@ -40,8 +42,9 @@ async function main() {
     data: {
       email: "member1@example.com",
       passwordHash,
-      name: "Carol Dev",
-      role: UserRole.TEAM_MEMBER,
+      firstName: "Mem",
+      lastName:"1",
+      role: ProjectRole.MANAGER,
     },
   });
 
@@ -49,8 +52,9 @@ async function main() {
     data: {
       email: "member2@example.com",
       passwordHash,
-      name: "Dave Design",
-      role: UserRole.TEAM_MEMBER,
+      firstName: "Bob Dev",
+      lastName:"Sena",
+      role: ProjectRole.MEMBER,
     },
   });
 
@@ -150,7 +154,7 @@ async function main() {
         projectId: project2.id,
       },
       {
-        action: `Task "Setup API Infrastructure" was assigned to ${member1.name}.`,
+        action: `Task "Setup API Infrastructure" was assigned to ${member1.firstName} ${member1.lastName}.`,
         userId: pm.id,
         projectId: project1.id,
       },

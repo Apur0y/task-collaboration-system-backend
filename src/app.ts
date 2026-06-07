@@ -8,8 +8,10 @@ import projectRoutes from "./modules/project/project.routes";
 import dashboardRoutes from "./modules/dashboard/dashboard.routes";
 import activityRoutes from "./modules/activity/activity.routes";
 import authRoutes from "./modules/auth/auth.routes";
+import userRoutes from "./modules/user/user.routes";
 
 import { errorHandler, notFound } from "./middleware/errorHandler";
+import taskRoutes from "./modules/task/task.routes";
 
 const app: Application = express();
 
@@ -47,7 +49,6 @@ const authLimiter = rateLimit({
 app.use("/api", limiter);
 app.use("/api/auth", authLimiter);
 
-// ─── Health Check ─────────────────────────────────────────────────────────────
 app.get("/health", (_req, res) => {
   res.status(200).json({
     success: true,
@@ -60,10 +61,12 @@ app.get("/health", (_req, res) => {
 });
 
 // ─── API Routes ───────────────────────────────────────────────────────────────
-app.use("/api/auth", authRoutes);
-app.use("/api/projects", projectRoutes);
-app.use("/api/dashboard", dashboardRoutes);
-app.use("/api/activities", activityRoutes);
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/projects", projectRoutes);
+app.use("/api/v1/dashboard", dashboardRoutes);
+app.use("/api/v1/activities", activityRoutes);
+app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/tasks", taskRoutes);
 
 // ─── 404 & Error Handlers ─────────────────────────────────────────────────────
 app.use(notFound);

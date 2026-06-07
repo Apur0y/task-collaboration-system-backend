@@ -9,6 +9,7 @@ export const authenticate = (
   next: NextFunction
 ): void => {
   const authHeader = req.headers.authorization;
+console.log("Brothre",authHeader);
 
   if (!authHeader?.startsWith("Bearer ")) {
     return next(new AppError("No token provided. Please log in.", 401));

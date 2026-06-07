@@ -28,7 +28,7 @@ export const findAllProjects = async (params: {
       take: limit,
       orderBy: { createdAt: "desc" },
       include: {
-        owner: { select: { id: true, name: true, email: true } },
+        owner: { select: { id: true, email: true } },
         _count: { select: { tasks: true, members: true } },
       },
     }),
@@ -39,21 +39,34 @@ export const findAllProjects = async (params: {
 };
 
 export const findProjectById = async (id: string) => {
-  return prisma.project.findUnique({
-    where: { id },
-    include: {
-      owner: { select: { id: true, name: true, email: true } },
-      members: {
-        include: { user: { select: { id: true, name: true, email: true, role: true } } },
-      },
-      tasks: {
-        include: {
-          assignedMember: { select: { id: true, name: true, email: true } },
+
+ const project = await prisma.project.findUnique({
+  where: { id },
+  include: {
+    owner: { select: { id: true, email: true } },
+    members: {
+      include: {
+        user: {
+          select: {
+            email: true,
+          },
         },
-        orderBy: { createdAt: "desc" },
       },
     },
-  });
+  },
+});
+
+const formatted = {
+  ...project,
+  members: project?.members.map((m) => ({
+    userId: m.userId,
+    userEmail: m.user.email, 
+    assignedAt: m.assignedAt,
+    role: m.role,
+  })),
+};
+
+return formatted;
 };
 
 export const createProject = async (data: {
@@ -71,7 +84,7 @@ export const createProject = async (data: {
       },
     },
     include: {
-      owner: { select: { id: true, name: true, email: true } },
+      owner: { select: { id: true,  email: true } },
     },
   });
 };
@@ -100,3 +113,23 @@ export const getProjectProgress = async (id: string) => {
   const progress = total === 0 ? 0 : Math.round((completed / total) * 100);
   return { total, completed, progress };
 };
+
+export const updateProjectMembers = async (id: string, member: any) => {
+
+  await prisma.projectMember.createMany({
+    data: [{
+     projectId: id,
+      userId:member.userId,
+      role:member.role
+    }]
+  });
+
+  return prisma.project.findUnique({
+    where: { id },
+    include: {
+      members: {
+        include: { user: { select: {email: true } } },
+      },
+    },
+  });
+} 

@@ -7,7 +7,8 @@ export const signupSchema = z.object({
     .string()
     .min(8, "Password must be at least 8 characters.")
     .max(64),
-  name: z.string().min(2, "Name must be at least 2 characters.").max(100),
+ firstName: z.string().min(2, "First name must be at least 2 characters.").max(100),
+ lastName: z.string().min(2, "Last name must be at least 2 characters.").max(100),
   role: z.nativeEnum(UserRole).optional(),
 });
 
