@@ -41,7 +41,7 @@ router.get("/:id", authenticate, projectController.getProjectById);
 router.put(
   "/:id",
   authenticate,
-  checkRole([UserRole.ADMIN, UserRole.PROJECT_MANAGER]),
+  checkRole([UserRole.ADMIN, ProjectRole.MANAGER,ProjectRole.OWNER]),
   validate(updateProjectSchema),
   projectController.updateProject
 );
@@ -50,7 +50,7 @@ router.put(
 router.delete(
   "/:id",
   authenticate,
-  checkRole([UserRole.ADMIN, UserRole.PROJECT_MANAGER]),
+  checkRole([UserRole.ADMIN, ProjectRole.MANAGER,ProjectRole.OWNER]),
   projectController.deleteProject
 );
 

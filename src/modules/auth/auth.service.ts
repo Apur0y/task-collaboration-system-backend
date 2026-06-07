@@ -20,7 +20,7 @@ export const signup = async (input: SignupInput) => {
     email: input.email,
     passwordHash,
     firstName: input.firstName,
-    lastName: input.lastName,
+    lastName: input.lastName
 
   });
 

@@ -28,7 +28,7 @@ export const findAllProjects = async (params: {
       take: limit,
       orderBy: { createdAt: "desc" },
       include: {
-        owner: { select: { id: true, name: true, email: true } },
+        owner: { select: { id: true, email: true } },
         _count: { select: { tasks: true, members: true } },
       },
     }),
@@ -42,13 +42,13 @@ export const findProjectById = async (id: string) => {
   return prisma.project.findUnique({
     where: { id },
     include: {
-      owner: { select: { id: true, name: true, email: true } },
+      owner: { select: { id: true,  email: true } },
       members: {
-        include: { user: { select: { id: true, name: true, email: true, role: true } } },
+        include: { user: { select: { id: true,  email: true, role: true } } },
       },
       tasks: {
         include: {
-          assignedMember: { select: { id: true, name: true, email: true } },
+          assignedMember: { select: { id: true,  email: true } },
         },
         orderBy: { createdAt: "desc" },
       },
@@ -71,7 +71,7 @@ export const createProject = async (data: {
       },
     },
     include: {
-      owner: { select: { id: true, name: true, email: true } },
+      owner: { select: { id: true,  email: true } },
     },
   });
 };
