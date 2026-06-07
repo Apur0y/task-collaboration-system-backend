@@ -101,21 +101,21 @@ export const getProjectProgress = async (id: string) => {
   return { total, completed, progress };
 };
 
-export const updateProjectMembers = async (id: string, memberId: any) => {
+export const updateProjectMembers = async (id: string, member: any) => {
 
   await prisma.projectMember.createMany({
-    data: {
-        projectId: id,
-      userId:memberId.id,
-    },
-    skipDuplicates: true,
+    data: [{
+     projectId: id,
+      userId:member.userId,
+      role:member.role
+    }]
   });
 
   return prisma.project.findUnique({
     where: { id },
     include: {
       members: {
-        include: { user: { select: { id: true, email: true, role: true } } },
+        include: { user: { select: {email: true } } },
       },
     },
   });
