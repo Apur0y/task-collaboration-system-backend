@@ -1,5 +1,6 @@
-import prisma from "../config/database";
-import { UserRole } from "../types/enums";
+import prisma from "../../config/database";
+import { UserRole } from "../../types/enums";
+
 
 export const findUserByEmail = async (email: string) => {
   return prisma.user.findUnique({ where: { email } });

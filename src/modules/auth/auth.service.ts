@@ -1,10 +1,12 @@
 import bcrypt from "bcryptjs";
 
-import { AppError } from "../utils/AppError";
-import { UserRole } from "../types/enums";
-import { signToken } from "../utils/jwt";
-import * as authRepo from "../repositories/auth.repository";
-import { LoginInput, SignupInput } from "../validators/auth.validator";
+
+import * as authRepo from "../auth/auth.repository";
+import { LoginInput, SignupInput } from "../../validators/auth.validator";
+import { AppError } from "../../utils/AppError";
+import { UserRole } from "../../types/enums";
+import { signToken } from "../../utils/jwt";
+
 
 export const signup = async (input: SignupInput) => {
   const existing = await authRepo.findUserByEmail(input.email);

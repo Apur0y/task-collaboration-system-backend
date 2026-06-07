@@ -1,6 +1,6 @@
 import * as taskRepo from "../repositories/task.repository";
 import * as activityRepo from "../repositories/activity.repository";
-import * as authRepo from "../repositories/auth.repository";
+import * as authRepo from "../modules/auth/auth.repository";
 import { AppError } from "../utils/AppError";
 import { AuthPayload } from "../types";
 import {
