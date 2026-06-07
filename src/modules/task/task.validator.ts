@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { TaskPriority, TaskStatus } from "../types/enums";
+import { TaskPriority, TaskStatus } from "../../types/enums";
 
 const futureDate = z
   .string()

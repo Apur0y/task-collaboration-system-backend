@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import * as activityRepo from "../repositories/activity.repository";
-import { sendSuccess } from "../utils/response";
+import * as activityRepo from "../activity/activity.repository";
+import { sendSuccess } from "../../utils/response";
+
 
 export const getActivities = async (
   req: Request,

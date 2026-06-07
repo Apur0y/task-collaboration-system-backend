@@ -1,8 +1,6 @@
 import { Router } from "express";
-import * as taskController from "../controllers/task.controller";
-import { authenticate } from "../middleware/authenticate";
-import { checkRole } from "../middleware/checkRole";
-import { validate } from "../middleware/validate";
+import * as taskController from "../task/task.controller";
+
 import {
   createTaskSchema,
   updateTaskSchema,
@@ -10,8 +8,12 @@ import {
   taskQuerySchema,
   addCommentSchema,
   addAttachmentSchema,
-} from "../validators/task.validator";
-import { UserRole } from "../types/enums";
+} from "../task/task.validator";
+import { authenticate } from "../../middleware/authenticate";
+import { validate } from "../../middleware/validate";
+import { UserRole } from "../../types/enums";
+import { checkRole } from "../../middleware/checkRole";
+
 
 // mergeParams: true allows access to parent router params (e.g., :projectId)
 const router = Router({ mergeParams: true });

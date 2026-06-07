@@ -1,4 +1,5 @@
-import prisma from "../config/database";
+import prisma from "../../config/database";
+
 
 export const getDashboardStats = async (
   userId?: string,

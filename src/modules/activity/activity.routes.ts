@@ -1,8 +1,8 @@
 import { Router } from "express";
-import * as activityController from "../controllers/activity.controller";
-import { authenticate } from "../middleware/authenticate";
-import { checkRole } from "../middleware/checkRole";
-import { UserRole } from "../types/enums";
+import * as activityController from "../activity/activity.controller";
+import { authenticate } from "../../middleware/authenticate";
+import { checkRole } from "../../middleware/checkRole";
+import { UserRole } from "../../types/enums";
 
 const router = Router();
 

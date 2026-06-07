@@ -1,5 +1,6 @@
-import prisma from "../config/database";
-import { ProjectStatus } from "../types/enums";
+import prisma from "../../config/database";
+import { ProjectStatus } from "../../types/enums";
+
 
 export const findAllProjects = async (params: {
   status?: ProjectStatus;
