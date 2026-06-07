@@ -6,7 +6,7 @@ import rateLimit from "express-rate-limit";
 
 import projectRoutes from "./routes/project.routes";
 import dashboardRoutes from "./routes/dashboard.routes";
-import activityRoutes from "./routes/activity.routes";
+import activityRoutes from "./modules/activity/activity.routes";
 import authRoutes from "./modules/auth/auth.routes";
 
 import { errorHandler, notFound } from "./middleware/errorHandler";

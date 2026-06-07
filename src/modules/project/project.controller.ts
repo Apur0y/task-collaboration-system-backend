@@ -1,12 +1,12 @@
 import { Response, NextFunction } from "express";
 import * as projectService from "../services/project.service";
-import { sendSuccess } from "../utils/response";
-import { AuthRequest } from "../types";
+import { sendSuccess } from "../../utils/response";
+import { AuthRequest } from "../../types";
 import {
   CreateProjectInput,
   UpdateProjectInput,
   ProjectQueryInput,
-} from "../validators/project.validator";
+} from "../../validators/project.validator";
 
 export const getAllProjects = async (
   req: AuthRequest,

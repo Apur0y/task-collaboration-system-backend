@@ -1,5 +1,5 @@
 import { Response, NextFunction } from "express";
-import * as taskService from "../services/task.service";
+import * as taskService from "../modules/task/task.service";
 import { sendSuccess } from "../utils/response";
 import { AuthRequest } from "../types";
 import {

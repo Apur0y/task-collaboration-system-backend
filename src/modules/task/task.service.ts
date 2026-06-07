@@ -1,15 +1,15 @@
 import * as taskRepo from "../repositories/task.repository";
-import * as activityRepo from "../repositories/activity.repository";
-import * as authRepo from "../modules/auth/auth.repository";
-import { AppError } from "../utils/AppError";
-import { AuthPayload } from "../types";
+import * as activityRepo from "../activity/activity.repository";
+import * as authRepo from "../auth/auth.repository";
+import { AppError } from "../../utils/AppError";
+import { AuthPayload } from "../../types";
 import {
   CreateTaskInput,
   UpdateTaskInput,
   UpdateTaskStatusInput,
   TaskQueryInput,
-} from "../validators/task.validator";
-import { UserRole } from "../types/enums";
+} from "../../validators/task.validator";
+import { UserRole } from "../../types/enums";
 
 export const getTasksByProject = async (
   projectId: string,

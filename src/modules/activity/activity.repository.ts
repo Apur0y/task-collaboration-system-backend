@@ -1,4 +1,4 @@
-import prisma from "../config/database";
+import prisma from "../../config/database";
 
 export const createActivityLog = async (data: {
   action: string;
