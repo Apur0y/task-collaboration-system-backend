@@ -8,6 +8,7 @@ import projectRoutes from "./modules/project/project.routes";
 import dashboardRoutes from "./modules/dashboard/dashboard.routes";
 import activityRoutes from "./modules/activity/activity.routes";
 import authRoutes from "./modules/auth/auth.routes";
+import userRoutes from "./modules/user/user.routes";
 
 import { errorHandler, notFound } from "./middleware/errorHandler";
 
@@ -64,7 +65,7 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/projects", projectRoutes);
 app.use("/api/v1/dashboard", dashboardRoutes);
 app.use("/api/v1/activities", activityRoutes);
-
+app.use("/api/v1/users", userRoutes);
 // ─── 404 & Error Handlers ─────────────────────────────────────────────────────
 app.use(notFound);
 app.use(errorHandler);

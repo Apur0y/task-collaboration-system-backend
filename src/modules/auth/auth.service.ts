@@ -21,7 +21,6 @@ export const signup = async (input: SignupInput) => {
     passwordHash,
     firstName: input.firstName,
     lastName: input.lastName
-
   });
 
   const accessToken = signToken({ userId: user.id, email: user.email, role: user.role });
