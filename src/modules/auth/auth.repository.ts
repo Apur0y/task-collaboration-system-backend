@@ -13,8 +13,8 @@ export const findUserById = async (id: string) => {
 export const createUser = async (data: {
   email: string;
   passwordHash: string;
-  name: string;
-  role?: UserRole;
+  firstName: string;
+  lastName:string
 }) => {
   return prisma.user.create({ data });
 };

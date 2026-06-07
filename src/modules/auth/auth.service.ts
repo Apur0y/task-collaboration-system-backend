@@ -14,23 +14,25 @@ export const signup = async (input: SignupInput) => {
     throw new AppError("Email already in use.", 409);
   }
 
-  const passwordHash = bcrypt.hash(input.password, 12);
+  const passwordHash = await bcrypt.hash(input.password, 12);
 
   const user = await authRepo.createUser({
     email: input.email,
     passwordHash,
-    name: input.name,
-    role: input.role ?? UserRole.TEAM_MEMBER,
+    firstName: input.firstName,
+    lastName: input.lastName,
+
   });
 
-  const token = signToken({ userId: user.id, email: user.email, role: user.role });
+  const accessToken = signToken({ userId: user.id, email: user.email, role: user.role });
 
   return {
-    token,
+    accessToken,
     user: {
       id: user.id,
       email: user.email,
-      name: user.name,
+      firstName: user.firstName,
+      lastName: user.lastName,
       role: user.role,
     },
   };
@@ -47,14 +49,15 @@ export const login = async (input: LoginInput) => {
     throw new AppError("Invalid email or password.", 401);
   }
 
-  const token = signToken({ userId: user.id, email: user.email, role: user.role });
+  const accessToken = signToken({ userId: user.id, email: user.email, role: user.role });
 
   return {
-    token,
+    accessToken,
     user: {
       id: user.id,
       email: user.email,
-      name: user.name,
+      firstName: user.firstName,
+      lastName: user.lastName,
       role: user.role,
     },
   };
