@@ -1,5 +1,5 @@
 import { Response, NextFunction } from "express";
-import * as dashboardRepo from "../repositories/dashboard.repository";
+import * as dashboardRepo from "../dashboard/dashboard.repository";
 import { sendSuccess } from "../../utils/response";
 import { AuthRequest } from "../../types";
 

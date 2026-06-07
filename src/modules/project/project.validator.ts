@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { ProjectStatus } from "../types/enums";
+import { ProjectStatus } from "../../types/enums";
+
 
 const futureDate = z
   .string()

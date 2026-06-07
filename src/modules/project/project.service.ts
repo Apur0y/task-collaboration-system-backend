@@ -1,13 +1,14 @@
-import * as projectRepo from "../repositories/project.repository";
-import * as activityRepo from "../repositories/activity.repository";
-import { AppError } from "../utils/AppError";
-import { AuthPayload } from "../types";
+import * as projectRepo from "../project/project.repository";
+import * as activityRepo from "../activity/activity.repository";
+
 import {
   CreateProjectInput,
   UpdateProjectInput,
   ProjectQueryInput,
-} from "../validators/project.validator";
-import { UserRole } from "../types/enums";
+} from "../project/project.validator";
+import { AuthPayload } from "../../types";
+import { AppError } from "../../utils/AppError";
+import { UserRole } from "../../types/enums";
 
 export const getAllProjects = async (
   query: ProjectQueryInput,

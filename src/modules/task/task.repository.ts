@@ -1,5 +1,5 @@
-import prisma from "../config/database";
-import { TaskPriority, TaskStatus } from "../types/enums";
+import prisma from "../../config/database";
+import { TaskPriority, TaskStatus } from "../../types/enums";
 
 export const findTasksByProject = async (
   projectId: string,

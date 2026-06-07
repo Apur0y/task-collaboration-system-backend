@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 
 
 import * as authRepo from "../auth/auth.repository";
-import { LoginInput, SignupInput } from "../../validators/auth.validator";
+import { LoginInput, SignupInput } from "../auth/auth.validator";
 import { AppError } from "../../utils/AppError";
 import { UserRole } from "../../types/enums";
 import { signToken } from "../../utils/jwt";
@@ -14,7 +14,7 @@ export const signup = async (input: SignupInput) => {
     throw new AppError("Email already in use.", 409);
   }
 
-  const passwordHash = await bcrypt.hash(input.password, 12);
+  const passwordHash = bcrypt.hash(input.password, 12);
 
   const user = await authRepo.createUser({
     email: input.email,

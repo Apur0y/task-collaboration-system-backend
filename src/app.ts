@@ -4,8 +4,8 @@ import helmet from "helmet";
 import morgan from "morgan";
 import rateLimit from "express-rate-limit";
 
-import projectRoutes from "./routes/project.routes";
-import dashboardRoutes from "./routes/dashboard.routes";
+import projectRoutes from "./modules/project/project.routes";
+import dashboardRoutes from "./modules/dashboard/dashboard.routes";
 import activityRoutes from "./modules/activity/activity.routes";
 import authRoutes from "./modules/auth/auth.routes";
 

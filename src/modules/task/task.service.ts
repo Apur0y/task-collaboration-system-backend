@@ -1,4 +1,4 @@
-import * as taskRepo from "../repositories/task.repository";
+import * as taskRepo from "../task/task.repository";
 import * as activityRepo from "../activity/activity.repository";
 import * as authRepo from "../auth/auth.repository";
 import { AppError } from "../../utils/AppError";
@@ -8,7 +8,7 @@ import {
   UpdateTaskInput,
   UpdateTaskStatusInput,
   TaskQueryInput,
-} from "../../validators/task.validator";
+} from "../task/task.validator";
 import { UserRole } from "../../types/enums";
 
 export const getTasksByProject = async (

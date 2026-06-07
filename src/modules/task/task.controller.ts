@@ -1,13 +1,14 @@
 import { Response, NextFunction } from "express";
-import * as taskService from "../modules/task/task.service";
-import { sendSuccess } from "../utils/response";
-import { AuthRequest } from "../types";
+import * as taskService from "../task/task.service";
+
 import {
   CreateTaskInput,
   UpdateTaskInput,
   UpdateTaskStatusInput,
   TaskQueryInput,
-} from "../validators/task.validator";
+} from "../task/task.validator";
+import { AuthRequest } from "../../types";
+import { sendSuccess } from "../../utils/response";
 
 export const getTasksByProject = async (
   req: AuthRequest,

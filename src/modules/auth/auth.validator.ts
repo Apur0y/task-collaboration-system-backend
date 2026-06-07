@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { UserRole } from "../types/enums";
+import { UserRole } from "../../types/enums";
 
 export const signupSchema = z.object({
   email: z.string().email("Invalid email address."),

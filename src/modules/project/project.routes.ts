@@ -1,17 +1,19 @@
 import { Router } from "express";
-import * as projectController from "../controllers/project.controller";
-import { authenticate } from "../middleware/authenticate";
-import { checkRole } from "../middleware/checkRole";
-import { validate } from "../middleware/validate";
+import * as projectController from "../project/project.controller";
+
 import {
   createProjectSchema,
   updateProjectSchema,
   projectQuerySchema,
-} from "../validators/project.validator";
-import { UserRole } from "../types/enums";
+} from "../project/project.validator";
+
 
 // Import nested task routes
-import taskRouter from "./task.routes";
+import taskRouter from "../task/task.routes";
+import { authenticate } from "../../middleware/authenticate";
+import { validate } from "../../middleware/validate";
+import { checkRole } from "../../middleware/checkRole";
+import { UserRole } from "../../types/enums";
 
 const router = Router();
 

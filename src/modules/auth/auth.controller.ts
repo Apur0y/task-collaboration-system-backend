@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 
 import * as authService from "../auth/auth.service";
-import { LoginInput, SignupInput } from "../../validators/auth.validator";
+import { LoginInput, SignupInput } from "../auth/auth.validator";
 import { sendSuccess } from "../../utils/response";
 export const signup = async (
   req: Request,
