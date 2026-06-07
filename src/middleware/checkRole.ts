@@ -5,8 +5,9 @@ import { UserRole } from "@prisma/client";
 
 export const checkRole = (allowedRoles:any) => {
   return (req: AuthRequest, _res: Response, next: NextFunction): void => {
-    console.log(allowedRoles);
-    console.log(req);
+    
+  
+
     if (!req.user) {
       return next(new AppError("Unauthorized. Please authenticate.", 401));
     }

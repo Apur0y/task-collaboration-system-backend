@@ -94,3 +94,29 @@ export const deleteProject = async (id: string, currentUser: AuthPayload) => {
 
   return projectRepo.deleteProject(id);
 };
+
+export const updateProjectMembers = async (
+  id: string,
+  members: any,
+  currentUser: AuthPayload
+) => {
+  const project = await projectRepo.findProjectById(id);
+  if (!project) throw new AppError("Project not found.", 404);
+
+  if (
+    currentUser.role === UserRole.PROJECT_MANAGER &&
+    project.ownerId !== currentUser.userId
+  ) {
+    throw new AppError("You can only update members of projects you own.", 403);
+  }
+
+  const updated = await projectRepo.updateProjectMembers(id, members);
+
+  // await activityRepo.createActivityLog({
+  //   action: `Members of project "${updated.name}" were updated.`,
+  //   userId: currentUser.userId,
+  //   projectId: id,
+  // });
+
+  return updated;
+};

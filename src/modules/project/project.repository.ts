@@ -100,3 +100,23 @@ export const getProjectProgress = async (id: string) => {
   const progress = total === 0 ? 0 : Math.round((completed / total) * 100);
   return { total, completed, progress };
 };
+
+export const updateProjectMembers = async (id: string, memberId: any) => {
+
+  await prisma.projectMember.createMany({
+    data: {
+        projectId: id,
+      userId:memberId.id,
+    },
+    skipDuplicates: true,
+  });
+
+  return prisma.project.findUnique({
+    where: { id },
+    include: {
+      members: {
+        include: { user: { select: { id: true, email: true, role: true } } },
+      },
+    },
+  });
+} 

@@ -29,7 +29,7 @@ router.get(
 router.post(
   "/",
   authenticate,
-  checkRole([UserRole.ADMIN,ProjectRole.MANAGER, ProjectRole.OWNER,"USER"]),
+  checkRole([UserRole.ADMIN,UserRole.USER]),
   validate(createProjectSchema),
   projectController.createProject
 );
@@ -53,5 +53,13 @@ router.delete(
   checkRole([UserRole.ADMIN, ProjectRole.MANAGER,ProjectRole.OWNER]),
   projectController.deleteProject
 );
+
+
+router.patch(
+  "/:id/members",
+  authenticate,
+  checkRole([UserRole.ADMIN, ProjectRole.MANAGER,ProjectRole.OWNER]),
+  projectController.updateProjectMembers
+)
 
 export default router;
