@@ -3,6 +3,7 @@ import * as activityController from "../activity/activity.controller";
 import { authenticate } from "../../middleware/authenticate";
 import { checkRole } from "../../middleware/checkRole";
 import { UserRole } from "../../types/enums";
+import { ProjectRole } from "@prisma/client";
 
 const router = Router();
 
@@ -14,7 +15,7 @@ const router = Router();
 router.get(
   "/",
   authenticate,
-  checkRole([UserRole.ADMIN, UserRole.PROJECT_MANAGER]),
+  checkRole([UserRole.ADMIN, ProjectRole.MANAGER, ProjectRole.OWNER]),
   activityController.getActivities
 );
 
