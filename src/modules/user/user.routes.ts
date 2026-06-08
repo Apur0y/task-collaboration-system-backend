@@ -35,4 +35,10 @@ router.delete(
   UserController.deleteUser
 );
 
+
+router.get(
+  "/me",
+  UserController.getMe
+);
+
 export default router;

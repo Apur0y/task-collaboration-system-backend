@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "./user.service";
+import { authenticate } from "../../middleware/authenticate";
 
 export const UserController = {
   getAllUsers: async (req: Request, res: Response, next: NextFunction) => {
@@ -30,6 +31,8 @@ export const UserController = {
     }
   },
 
+  
+
   updateUser: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user = await UserService.updateUser(req.params.id, req.body);
@@ -56,4 +59,20 @@ export const UserController = {
       next(err);
     }
   },
+
+  getMe:async (req: Request, res: Response) => {
+  const token = req.cookies.accessToken;
+
+  if (!token) {
+    return res.status(401).json({ message: "Not authenticated" });
+  }
+
+  const user = await authenticate
+
+  res.json({
+    success: true,
+    data: user,
+  });
+}
+
 };

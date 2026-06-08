@@ -3,6 +3,8 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import rateLimit from "express-rate-limit";
+import cookieParser from "cookie-parser";
+
 
 import projectRoutes from "./modules/project/project.routes";
 import dashboardRoutes from "./modules/dashboard/dashboard.routes";
@@ -17,6 +19,7 @@ const app: Application = express();
 
 // ─── Security & Utility Middleware ───────────────────────────────────────────
 app.use(helmet());
+app.use(cookieParser());
 app.use(
   cors({
      origin: "http://localhost:5173",
