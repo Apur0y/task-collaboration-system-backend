@@ -43,10 +43,10 @@ export const getDashboardStats = async (
       _count: { status: true },
     }),
     prisma.user.findMany({
-      where: { role: "TEAM_MEMBER" },
+      where: { role: "USER" },
       select: {
         id: true,
-        name: true,
+        firstName: true,
         email: true,
         assignedTasks: { select: { status: true } },
       },
@@ -60,11 +60,11 @@ export const getDashboardStats = async (
 
   const workloadSummary = teamWorkload.map((member: WorkloadMember) => ({
     id: member.id,
-    name: member.name,
+    name: member.firstName,
     email: member.email,
-    total: member.assignedTasks.length,
-    completed: member.assignedTasks.filter((t: { status: string }) => t.status === "COMPLETED").length,
-    pending: member.assignedTasks.filter((t: { status: string }) => t.status !== "COMPLETED").length,
+    // total: member.assignedTasks.length,
+    // completed: member.assignedTasks.filter((t: { status: string }) => t.status === "COMPLETED").length,
+    // pending: member.assignedTasks.filter((t: { status: string }) => t.status !== "COMPLETED").length,
   }));
 
   return {

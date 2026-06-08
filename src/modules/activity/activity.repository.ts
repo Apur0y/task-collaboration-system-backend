@@ -13,7 +13,7 @@ export const getRecentActivities = async (limit = 10) => {
     take: limit,
     orderBy: { createdAt: "desc" },
     include: {
-      user: { select: { id: true, name: true, email: true } },
+      user: { select: { id: true, email: true } },
       project: { select: { id: true, name: true } },
     },
   });
