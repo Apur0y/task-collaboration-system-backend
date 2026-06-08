@@ -20,12 +20,21 @@ const app: Application = express();
 // ─── Security & Utility Middleware ───────────────────────────────────────────
 app.use(helmet());
 app.use(cookieParser());
+
+// Configure CORS based on environment
+const allowedOrigins = (process.env.FRONTEND_URL || "http://localhost:5173").split(",");
+
 app.use(
   cors({
-     origin: "http://localhost:5173",
-    // methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    // allowedHeaders: ["Content-Type", "Authorization"],
-    credentials:true
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
   })
 );
 app.use(express.json({ limit: "10mb" }));
