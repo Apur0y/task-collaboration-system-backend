@@ -16,7 +16,7 @@ export const findAllProjects = async (params: {
   const where: Record<string, unknown> = {
     ...(status && { status }),
     ...(search && { name: { contains: search, mode: "insensitive" } }),
-    ...(userRole === "TEAM_MEMBER" && {
+    ...(userRole === "MEMBER" && {
       members: { some: { userId } },
     }),
   };

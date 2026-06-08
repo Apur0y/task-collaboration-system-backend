@@ -45,11 +45,11 @@ export const createTask = async (
     actionMsg = `Task "${task.title}" was assigned to ${assignee?.firstName ?? "a member"}.`;
   }
 
-  await activityRepo.createActivityLog({
-    action: actionMsg,
-    userId: currentUser.userId,
-    projectId: input.projectId,
-  });
+  // await activityRepo.createActivityLog({
+  //   action: actionMsg,
+  //   userId: currentUser.userId,
+  //   projectId: input.projectId,
+  // });
 
   return task;
 };

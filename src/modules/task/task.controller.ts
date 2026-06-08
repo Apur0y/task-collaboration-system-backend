@@ -31,6 +31,25 @@ export const getTasksByProject = async (
   }
 };
 
+export const getTasksByProjectDirect = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const query = req.query as unknown as TaskQueryInput;
+    const projectId = req.params.projectId;
+    const result = await taskService.getTasksByProject(projectId, query);
+    sendSuccess(res, result.tasks, 200, {
+      total: result.total,
+      page: Number(query.page),
+      limit: Number(query.limit),
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const getTaskById = async (
   req: AuthRequest,
   res: Response,

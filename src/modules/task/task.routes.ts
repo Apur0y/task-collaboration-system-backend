@@ -20,6 +20,13 @@ const router = Router({ mergeParams: true });
 
 
 router.get(
+  "/project/:projectId",
+  authenticate,
+  validate(taskQuerySchema, "query"),
+  taskController.getTasksByProjectDirect
+);
+
+router.get(
   "/",
   authenticate,
   validate(taskQuerySchema, "query"),
