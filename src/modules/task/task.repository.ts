@@ -33,7 +33,7 @@ export const findTasksByProject = async (
       take: limit,
       orderBy: { createdAt: "desc" },
       include: {
-        assignedMember: { select: { id: true, name: true, email: true } },
+        assignedMember: { select: { id: true,  email: true } },
         _count: { select: { comments: true, attachments: true } },
       },
     }),
@@ -116,7 +116,7 @@ export const addComment = async (data: {
 }) => {
   return prisma.comment.create({
     data,
-    include: { user: { select: { id: true, name: true } } },
+    include: { user: { select: { id: true, } } },
   });
 };
 
@@ -128,6 +128,6 @@ export const addAttachment = async (data: {
 }) => {
   return prisma.attachment.create({
     data,
-    include: { uploadedBy: { select: { id: true, name: true } } },
+    include: { uploadedBy: { select: { id: true } } },
   });
 };
