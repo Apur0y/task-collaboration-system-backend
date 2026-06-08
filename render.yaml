@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: smart-collab-api
+    env: node
+    plan: free
+    buildCommand: npm ci && npm run build && npx prisma generate && npx prisma migrate deploy
+    startCommand: node dist/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: smart-collab-db
+          property: connectionString
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_EXPIRY
+        value: 7d
+      - key: FRONTEND_URL
+        value: https://your-frontend-url.onrender.com
+
+  - type: pserv
+    name: smart-collab-db
+    ipAllowList: []
+    plan: free
