@@ -8,19 +8,16 @@ export const authenticate = (
   _res: Response,
   next: NextFunction
 ): void => {
-  const authHeader = req.headers.authorization;
-console.log("Brothre",authHeader);
-
-  if (!authHeader?.startsWith("Bearer ")) {
-    return next(new AppError("No token provided. Please log in.", 401));
-  }
-
-  const token = authHeader.split(" ")[1];
-
   try {
+    const token = req.cookies?.accessToken;
+
+    if (!token) {
+      return next(new AppError("No token provided. Please log in.", 401));
+    }
+
     req.user = verifyToken(token);
     next();
   } catch (err) {
-    next(err);
+    next(new AppError("Invalid or expired token", 401));
   }
 };

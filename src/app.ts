@@ -3,6 +3,8 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import rateLimit from "express-rate-limit";
+import cookieParser from "cookie-parser";
+
 
 import projectRoutes from "./modules/project/project.routes";
 import dashboardRoutes from "./modules/dashboard/dashboard.routes";
@@ -17,11 +19,13 @@ const app: Application = express();
 
 // ─── Security & Utility Middleware ───────────────────────────────────────────
 app.use(helmet());
+app.use(cookieParser());
 app.use(
   cors({
-    origin: process.env.ALLOWED_ORIGINS?.split(",") ?? "*",
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+     origin: "http://localhost:5173",
+    // methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    // allowedHeaders: ["Content-Type", "Authorization"],
+    credentials:true
   })
 );
 app.use(express.json({ limit: "10mb" }));
