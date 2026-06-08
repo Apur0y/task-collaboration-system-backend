@@ -6,7 +6,7 @@ import { sendSuccess } from "../../utils/response";
 export const signup = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const result = await authService.signup(req.body as SignupInput);
@@ -19,11 +19,22 @@ export const signup = async (
 export const login = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const result = await authService.login(req.body as LoginInput);
-    sendSuccess(res, result);
+
+    res.cookie("accessToken", result.accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+
+    sendSuccess(res, {
+      user: result.user,
+      message: "Login successful",
+    });
   } catch (err) {
     next(err);
   }
