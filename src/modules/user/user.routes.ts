@@ -15,6 +15,12 @@ router.get(
 );
 
 router.get(
+  "/me",
+  authenticate,
+  UserController.getMe
+);
+
+router.get(
   "/:id",
   authenticate,
   checkRole(UserRole.USER),
@@ -36,9 +42,6 @@ router.delete(
 );
 
 
-router.get(
-  "/me",
-  UserController.getMe
-);
+
 
 export default router;

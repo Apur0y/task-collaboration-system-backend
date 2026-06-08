@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "./user.service";
 import { authenticate } from "../../middleware/authenticate";
+import { verifyToken } from "../../utils/jwt";
 
 export const UserController = {
   getAllUsers: async (req: Request, res: Response, next: NextFunction) => {
@@ -31,6 +32,31 @@ export const UserController = {
     }
   },
 
+getMe: async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const token = req.cookies.accessToken;
+
+    if (!token) {
+      return res.status(401).json({ message: "Not authenticated" });
+    }
+
+    const decoded = verifyToken(token); // usually synchronous
+
+    const user = await UserService.getUserById(decoded.userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({
+      success: true,
+      data: user,
+    });
+  } catch (err) {
+    next(err);
+  }
+},
+
   
 
   updateUser: async (req: Request, res: Response, next: NextFunction) => {
@@ -60,19 +86,6 @@ export const UserController = {
     }
   },
 
-  getMe:async (req: Request, res: Response) => {
-  const token = req.cookies.accessToken;
 
-  if (!token) {
-    return res.status(401).json({ message: "Not authenticated" });
-  }
-
-  const user = await authenticate
-
-  res.json({
-    success: true,
-    data: user,
-  });
-}
 
 };
