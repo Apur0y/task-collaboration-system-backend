@@ -22,7 +22,7 @@ app.use(helmet());
 app.use(cookieParser());
 
 // Configure CORS based on environment
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || "http://localhost:5173").split(",");
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || "http://localhost:5273").split(",");
 
 app.use(
   cors({
